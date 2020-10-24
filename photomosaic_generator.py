@@ -82,8 +82,7 @@ def split_main_image():
     
     os.mkdir("main_image_blocks")   #create a new folder for storing the main image blocks
 
-    img = cv2.imread('C:\\Users\\Shaily Priya\\Desktop\\scr\\main_image\\img.jpg', 1) #load the colour image
-    if args.verbose: print ("\nMain image shape")
+img = cv2.imread('main_image/img.jpg', 1) #load the colour image    if args.verbose: print ("\nMain image shape")
     if args.verbose: print (" height   : ", img.shape[0])
     if args.verbose: print (" width    : ", img.shape[1])
     if args.verbose: time.sleep(sdelay)
@@ -133,7 +132,7 @@ def rename_filler_images():
     for infile in glob.glob("./filler_images/*.*"):
         total_img_count += 1
     for infile in glob.glob("./filler_images/*.*"):
-        im = Image.open(infile)
+        im = Image.open(infile).convert('RGB')
         count += 1
         im.save("./renamed_filler_images/" + str(count) + ".jpg", "JPEG")
         if args.verbose: print ("STEP 2 -->    ", count, "/", total_img_count, "images renamed")
@@ -176,7 +175,7 @@ def resize_filler_images():
         total_img_count += 1
     for infile in glob.glob("./cropped_filler_images/*.jpg"):
         file, ext = os.path.splitext(infile)
-        im = Image.open(infile)
+        im = Image.open(infile).convert('RGB')
         im.thumbnail(size)
         im.save("./resized_filler_images/" + str(count) + '.jpg', "JPEG")
         count += 1
